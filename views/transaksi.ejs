@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaksi Laundry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+
+    <h2>Laundry App</h2>
+
+    <ul>
+        <li><a href="/cek-laundry">Cek Laundry</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/transaksi">Transaksi</a></li>
+        <li><a href="/pelanggan">Pelanggan</a></li>
+        <li><a href="/laporan">Laporan</a></li>
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <h1>Manajemen Transaksi</h1>
+
+    <div class="card">
+
+        <form action="/tambah" method="POST">
+
+            <input type="text" name="nama" placeholder="Nama Pelanggan" required>
+            <input 
+                type="text"
+                name="nohp"
+                placeholder="Nomor HP"
+                required
+            >
+
+            <select name="layanan">
+                <option>Cuci Kering</option>
+                <option>Cuci Setrika</option>
+                <option>Express</option>
+            </select>
+
+            <input
+                type="number"
+                name="jumlah_baju"
+                placeholder="Jumlah Baju"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_celana"
+                placeholder="Jumlah Celana"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_jaket"
+                placeholder="Jumlah Jaket"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_kerudung"
+                placeholder="Jumlah Kerudung"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_koko"
+                placeholder="Jumlah Koko"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_handuk"
+                placeholder="Jumlah Handuk"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_kemeja"
+                placeholder="Jumlah Kemeja"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_sarung"
+                placeholder="Jumlah Sarung"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_gamis"
+                placeholder="Jumlah Gamis"
+                value=""
+            >
+
+            <input
+                type="number"
+                name="jumlah_mukena"
+                placeholder="Jumlah Mukena"
+                value=""
+            >
+
+            <input type="number" name="berat" placeholder="Berat Cucian" required>
+
+            <select name="status">
+                <option>Diproses</option>
+                <option>Selesai</option>
+            </select>
+
+            <button type="submit">Tambah Transaksi</button>
+
+        </form>
+
+    </div>
+
+    <div class="card">
+    <input 
+    type="text"
+    id="searchInput"
+    placeholder="Cari pelanggan..."
+    >
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Layanan</th>
+                    <th>Berat</th>
+                    <th>Status</th>
+                    <th>Estimasi</th>
+                    <th>Harga</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody">
+
+                <% transaksi.forEach(data => { %>
+
+                    <tr>
+                        <td><%= data.nama %></td>
+                        <td><%= data.layanan %></td>
+                        <td><%= data.berat %> Kg</td>
+                        <td><%= new Date(data.estimasi_selesai).toLocaleDateString('id-ID') %></td>
+                        <td><%= data.status %></td>
+                        <td>Rp <%= data.harga.toLocaleString('id-ID') %></td>
+
+                        <td>
+                            <a class="edit" href="/edit/<%= data.id %>">
+                                Edit
+                            </a>
+
+                            <a class="hapus" href="/hapus/<%= data.id %>">
+                                Hapus
+                            </a>
+
+                            <a class="print" href="/nota/<%= data.id %>">
+                                Print
+                            </a>
+                        </td>
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+const searchInput = document.getElementById('searchInput');
+
+searchInput.addEventListener('keyup', function(){
+
+    const keyword = searchInput.value.toLowerCase();
+
+    const rows = document.querySelectorAll('#tableBody tr');
+
+    rows.forEach(row => {
+
+        const text = row.textContent.toLowerCase();
+
+        if(text.includes(keyword)){
+            row.style.display = '';
+        }else{
+            row.style.display = 'none';
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

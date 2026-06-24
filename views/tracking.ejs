@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tracking Laundry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="main">
+
+    <h1>Status Laundry</h1>
+
+    <div class="card">
+
+        <p><b>Nama:</b> <%= data.nama %></p>
+
+        <p><b>Layanan:</b> <%= data.layanan %></p>
+
+        <p><b>Status:</b> <%= data.status %></p>
+
+        <p><b>Berat:</b> <%= data.berat %> Kg</p>
+
+        <p>
+            <b>Estimasi:</b>
+
+            <%= new Date(data.estimasi_selesai)
+            .toLocaleDateString('id-ID') %>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

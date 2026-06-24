@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nota Laundry</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            padding: 30px;
+        }
+
+        .nota{
+            width: 300px;
+            border: 1px solid black;
+            padding: 20px;
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        hr{
+            margin: 15px 0;
+        }
+
+        button{
+            margin-top: 20px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        @media print{
+            button{
+                display:none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="nota">
+
+        <h2>Laundry App</h2>
+
+        <hr>
+
+        <p><b>Nama:</b> <%= data.nama %></p>
+
+        <p><b>No HP:</b> <%= data.nohp %></p>
+
+        <p><b>Layanan:</b> <%= data.layanan %></p>
+
+        <p><b>Berat:</b> <%= data.berat %> Kg</p>
+
+        <p>Baju: <%= data.jumlah_baju %></p>
+
+        <p>Celana: <%= data.jumlah_celana %></p>
+
+        <p>Jaket: <%= data.jumlah_jaket %></p>
+
+        <p>Kerudung: <%= data.jumlah_kerudung %></p>
+
+        <p>Koko: <%= data.jumlah_koko %></p>
+
+        <p>Handuk: <%= data.jumlah_handuk %></p>
+
+        <p>Kemeja: <%= data.jumlah_kemeja %></p>
+
+        <p>Sarung: <%= data.jumlah_sarung %></p>
+
+        <p>Gamis: <%= data.jumlah_gamis %></p>
+
+        <p>Mukena: <%= data.jumlah_mukena %></p>
+
+        <p><b>Status:</b> <%= data.status %></p>
+
+        <p><b>Total:</b> Rp <%= data.harga %></p>
+
+        <hr>
+
+        <p>Terima kasih 🙏</p>
+
+        <div style="text-align:center; margin-top:20px;">
+
+            <img src="<%= qrCode %>" width="150">
+
+            <p>Scan untuk tracking laundry</p>
+
+        </div>
+
+        <button onclick="window.print()">
+            Print Nota
+        </button>
+
+    </div>
+
+</body>
+</html>

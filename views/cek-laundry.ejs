@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Cek Laundry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+
+    <h2>Laundry App</h2>
+
+    <ul>
+        <li><a href="/cek-laundry">Cek Laundry</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/transaksi">Transaksi</a></li>
+        <li><a href="/pelanggan">Pelanggan</a></li>
+        <li><a href="/laporan">Laporan</a></li>
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <h1>Cek Status Laundry</h1>
+
+    <div class="card">
+
+        <form action="/cek-laundry" method="POST">
+
+            <input
+                type="text"
+                name="nohp"
+                placeholder="Masukkan Nomor HP"
+                required
+            >
+
+            <button type="submit">
+                Cek Laundry
+            </button>
+
+        </form>
+
+    </div>
+
+    <% if(data && data.length > 0){ %>
+
+        <div class="card">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Layanan</th>
+                        <th>Status</th>
+                        <th>Estimasi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <% data.forEach(item => { %>
+
+                        <tr>
+
+                            <td><%= item.nama %></td>
+
+                            <td><%= item.layanan %></td>
+
+                            <td><%= item.status %></td>
+
+                            <td>
+                                <%= new Date(item.estimasi_selesai)
+                                .toLocaleDateString('id-ID') %>
+                            </td>
+
+                        </tr>
+
+                    <% }) %>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    <% } %>
+
+</div>
+
+</body>
+</html>

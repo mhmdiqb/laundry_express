@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Laundry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+
+    <h2>Laundry App</h2>
+
+    <ul>
+        <li><a href="/cek-laundry">Cek Laundry</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/transaksi">Transaksi</a></li>
+        <li><a href="/pelanggan">Pelanggan</a></li>
+        <li><a href="/laporan">Laporan</a></li>
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <h1>Laporan Laundry</h1>
+
+    <div class="filter-btn">
+
+        <a href="/laporan">
+            Semua
+        </a>
+
+        <a href="/laporan?filter=hari">
+            Hari Ini
+        </a>
+
+        <a href="/laporan?filter=minggu">
+            Minggu Ini
+        </a>
+
+        <a href="/laporan?filter=bulan">
+            Bulan Ini
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Total Pemasukan</h2>
+
+        <h1>
+            Rp <%= pemasukan.toLocaleString('id-ID') %>
+        </h1>
+
+    </div>
+
+    <div class="card">
+
+        <button onclick="window.print()" class="print-btn">
+            Print Laporan
+        </button>
+
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Layanan</th>
+                    <th>Tanggal</th>
+                    <th>Harga</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% transaksi.forEach(data => { %>
+
+                    <tr>
+                        <td><%= data.nama %></td>
+                        <td><%= data.layanan %></td>
+                        <td><%= new Date(data.tanggal_masuk).toLocaleDateString('id-ID') %></td>
+                        <td>Rp <%= data.harga.toLocaleString('id-ID') %></td>
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

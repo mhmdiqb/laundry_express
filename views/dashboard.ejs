@@ -1,0 +1,77 @@
+    <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Laundry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+
+    <h2>Laundry App</h2>
+
+    <ul>
+        <li><a href="/cek-laundry">Cek Laundry</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/transaksi">Transaksi</a></li>
+        <li><a href="/pelanggan">Pelanggan</a></li>
+        <li><a href="/laporan">Laporan</a></li>
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <h1>Dashboard Laundry</h1>
+
+    <div class="cards">
+
+        <div class="card statistik">
+            <h3>Total Transaksi</h3>
+            <p><%= totalTransaksi %></p>
+        </div>
+
+        <div class="card statistik">
+            <h3>Total Pemasukan</h3>
+            <p>Rp <%= pemasukan.toLocaleString('id-ID') %></p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Transaksi Terbaru</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Layanan</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% transaksi.forEach(data => { %>
+
+                    <tr>
+                        <td><%= data.nama %></td>
+                        <td><%= data.layanan %></td>
+                        <td><%= data.status %></td>
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

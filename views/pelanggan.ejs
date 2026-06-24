@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Pelanggan</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+
+    <h2>Laundry App</h2>
+
+    <ul>
+        <li><a href="/cek-laundry">Cek Laundry</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/transaksi">Transaksi</a></li>
+        <li><a href="/pelanggan">Pelanggan</a></li>
+        <li><a href="/laporan">Laporan</a></li>
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <h1>Data Pelanggan</h1>
+
+    <div class="card">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>No HP</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% pelanggan.forEach(data => { %>
+
+                    <tr>
+                        <td><%= data.nama %></td>
+                        <td><%= data.nohp %></td>
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

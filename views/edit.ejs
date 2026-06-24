@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Transaksi</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+
+    <h2>Laundry App</h2>
+
+    <ul>
+        <li><a href="/cek-laundry">Cek Laundry</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/transaksi">Transaksi</a></li>
+        <li><a href="/pelanggan">Pelanggan</a></li>
+        <li><a href="/laporan">Laporan</a></li>
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <h1>Edit Transaksi</h1>
+
+    <div class="card">
+
+        <form action="/update/<%= data.id %>" method="POST">
+
+            <input 
+                type="text"
+                name="nama"
+                value="<%= data.nama %>"
+                required
+            >
+            <input 
+                type="text"
+                name="nohp"
+                value="<%= data.nohp %>"
+                required
+            >
+
+            <input type="number" name="jumlah_baju" value="<%= data.jumlah_baju %>" placeholder="Jumlah Baju">
+
+            <input type="number" name="jumlah_celana" value="<%= data.jumlah_celana %>" placeholder="Jumlah Celana">
+
+            <input type="number" name="jumlah_jaket" value="<%= data.jumlah_jaket %>" placeholder="Jumlah Jaket">
+
+            <input type="number" name="jumlah_kerudung" value="<%= data.jumlah_kerudung %>" placeholder="Jumlah Kerudung">
+
+            <input type="number" name="jumlah_koko" value="<%= data.jumlah_koko %>" placeholder="Jumlah Koko">
+
+            <input type="number" name="jumlah_handuk" value="<%= data.jumlah_handuk %>" placeholder="Jumlah Handuk">
+
+            <input type="number" name="jumlah_kemeja" value="<%= data.jumlah_kemeja %>" placeholder="Jumlah Kemeja">
+
+            <input type="number" name="jumlah_sarung" value="<%= data.jumlah_sarung %>" placeholder="Jumlah Sarung">
+
+            <input type="number" name="jumlah_gamis" value="<%= data.jumlah_gamis %>" placeholder="Jumlah Gamis">
+
+            <input type="number" name="jumlah_mukena" value="<%= data.jumlah_mukena %>" placeholder="Jumlah Mukena">
+
+            <select name="layanan">
+
+                <option <%= data.layanan === 'Cuci Kering' ? 'selected' : '' %>>
+                    Cuci Kering
+                </option>
+
+                <option <%= data.layanan === 'Cuci Setrika' ? 'selected' : '' %>>
+                    Cuci Setrika
+                </option>
+
+                <option <%= data.layanan === 'Express' ? 'selected' : '' %>>
+                    Express
+                </option>
+
+            </select>
+
+            <input 
+                type="number"
+                name="berat"
+                value="<%= data.berat %>"
+                required
+            >
+
+            <select name="status">
+
+                <option <%= data.status === 'Diproses' ? 'selected' : '' %>>
+                    Diproses
+                </option>
+
+                <option <%= data.status === 'Selesai' ? 'selected' : '' %>>
+                    Selesai
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Update Transaksi
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
