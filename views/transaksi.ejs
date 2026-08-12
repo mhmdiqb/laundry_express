@@ -12,11 +12,59 @@
     <h2>Laundry App</h2>
 
     <ul>
-        <li><a href="/cek-laundry">Cek Laundry</a></li>
-        <li><a href="/">Dashboard</a></li>
-        <li><a href="/transaksi">Transaksi</a></li>
-        <li><a href="/pelanggan">Pelanggan</a></li>
-        <li><a href="/laporan">Laporan</a></li>
+
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+
+
+        <% if(user && (user.role === 'admin' || user.role === 'kasir')){ %> 
+
+        <li>
+            <a href="/transaksi">
+                Transaksi
+            </a>
+        </li>
+
+
+        <li>
+            <a href="/pelanggan">
+                Pelanggan
+            </a>
+        </li>
+
+
+        <li>
+            <a href="/cek-laundry">
+                Cek Laundry
+            </a>
+        </li>
+
+        <% } %>
+
+
+
+        <% if(user && user.role === 'admin'){ %>
+
+        <li>
+            <a href="/laporan">
+                Laporan
+            </a>
+        </li>
+
+        <% } %>
+
+
+
+        <li>
+            <a href="/logout">
+                Logout
+            </a>
+        </li>
+
+
     </ul>
 
 </div>
@@ -29,13 +77,64 @@
 
         <form action="/tambah" method="POST">
 
-            <input type="text" name="nama" placeholder="Nama Pelanggan" required>
-            <input 
-                type="text"
-                name="nohp"
-                placeholder="Nomor HP"
-                required
-            >
+            <label>Pilih Pelanggan</label>
+
+            <div style="display:flex;gap:10px;">
+
+            <select
+            id="id_pelanggan"
+            name="id_pelanggan"
+            style="flex:1;"
+            required>
+
+            <option value="">-- Pilih Pelanggan --</option>
+
+            <% pelanggan.forEach(p=>{ %>
+
+            <option
+            value="<%= p.Id %>"
+            data-nama="<%= p.nama %>"
+            data-nohp="<%= p.nohp %>"
+            data-alamat="<%= p.alamat %>">
+
+            <%= p.nama %> - <%= p.nohp %>
+
+            </option>
+
+            <% }) %>
+
+            </select>
+
+            <a href="/pelanggan" class="edit">
+            + Pelanggan Baru
+            </a>
+
+            </div>
+
+            <br>
+
+            <label>Nama</label>
+
+            <input
+            type="text"
+            id="nama"
+            readonly>
+
+            <label>No HP</label>
+
+            <input
+            type="text"
+            id="nohp"
+            readonly>
+
+            <label>Alamat</label>
+
+            <textarea
+            id="alamat"
+            rows="2"
+            readonly></textarea>
+
+            <br>
 
             <select name="layanan">
                 <option>Cuci Kering</option>
@@ -184,6 +283,53 @@
 
 </div>
 
+<div class="modal fade" id="modalPelanggan">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+<div class="modal-header">
+<h5>Tambah Pelanggan</h5>
+</div>
+
+<div class="modal-body">
+
+<form action="/pelanggan/tambah" method="POST">
+
+<input
+type="text"
+name="nama"
+class="form-control mb-2"
+placeholder="Nama"
+required>
+
+<input
+type="text"
+name="nohp"
+class="form-control mb-2"
+placeholder="No HP"
+required>
+
+<textarea
+name="alamat"
+class="form-control mb-2"
+placeholder="Alamat"></textarea>
+
+<button class="btn btn-primary w-100">
+Simpan
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
 
 const searchInput = document.getElementById('searchInput');
@@ -205,6 +351,22 @@ searchInput.addEventListener('keyup', function(){
         }
 
     });
+});
+
+const pelanggan = document.getElementById('id_pelanggan');
+
+pelanggan.addEventListener('change', function(){
+
+    const option = this.options[this.selectedIndex];
+
+    document.getElementById('nama').value =
+        option.dataset.nama || '';
+
+    document.getElementById('nohp').value =
+        option.dataset.nohp || '';
+
+    document.getElementById('alamat').value =
+        option.dataset.alamat || '';
 
 });
 

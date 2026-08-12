@@ -3,7 +3,17 @@ const router = express.Router();
 
 const laundryController = require('../controllers/laundryController');
 
-router.get('/', laundryController.dashboard);
+const {
+checkLogin,
+adminOnly
+
+}=require('../middleware/auth');
+
+
+router.get('/',
+checkLogin,
+laundryController.dashboard
+);
 
 router.get('/transaksi', laundryController.transaksi);
 
@@ -32,5 +42,7 @@ router.get('/cek-laundry', laundryController.cekLaundryPage);
 router.post('/cek-laundry', laundryController.cekLaundry);
 
 router.get('/tracking/:id', laundryController.trackingPage);
+
+router.get('/pelanggan/tambah', laundryController.tambahPelanggan);
 
 module.exports = router;

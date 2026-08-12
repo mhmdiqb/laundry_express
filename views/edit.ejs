@@ -12,11 +12,59 @@
     <h2>Laundry App</h2>
 
     <ul>
-        <li><a href="/cek-laundry">Cek Laundry</a></li>
-        <li><a href="/">Dashboard</a></li>
-        <li><a href="/transaksi">Transaksi</a></li>
-        <li><a href="/pelanggan">Pelanggan</a></li>
-        <li><a href="/laporan">Laporan</a></li>
+
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+
+
+        <% if(user.role === 'admin' || user.role === 'kasir'){ %>
+
+        <li>
+            <a href="/transaksi">
+                Transaksi
+            </a>
+        </li>
+
+
+        <li>
+            <a href="/pelanggan">
+                Pelanggan
+            </a>
+        </li>
+
+
+        <li>
+            <a href="/cek-laundry">
+                Cek Laundry
+            </a>
+        </li>
+
+        <% } %>
+
+
+
+        <% if(user.role === 'admin'){ %>
+
+        <li>
+            <a href="/laporan">
+                Laporan
+            </a>
+        </li>
+
+        <% } %>
+
+
+
+        <li>
+            <a href="/logout">
+                Logout
+            </a>
+        </li>
+
+
     </ul>
 
 </div>

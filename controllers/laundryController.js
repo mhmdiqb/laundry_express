@@ -32,17 +32,39 @@ exports.dashboard = (req, res) => {
 
 exports.transaksi = (req, res) => {
 
-    if(!req.session.user){
-        return res.redirect('/login');
-    }
+    const sql = `
+        SELECT
+            transaksi.*,
+            pelanggan.nama,
+            pelanggan.nohp,
+            pelanggan.alamat
+        FROM transaksi
+        LEFT JOIN pelanggan
+        ON transaksi.id_pelanggan = pelanggan.id_pelanggan
+        ORDER BY transaksi.id DESC
+    `;
 
-    db.query('SELECT * FROM transaksi', (err, transaksi) => {
+    db.query(sql, (err, transaksi) => {
 
-        if(err){
+        if (err) {
             console.log(err);
+            return res.send(err);
         }
 
-        res.render('transaksi', { transaksi });
+        db.query('SELECT * FROM pelanggan', (err, pelanggan) => {
+
+            if (err) {
+                console.log(err);
+                return res.send(err);
+            }
+
+            res.render('transaksi', {
+                transaksi,
+                pelanggan,
+                user: req.session.user
+            });
+
+        });
 
     });
 
@@ -54,7 +76,7 @@ exports.tambahTransaksi = (req, res) => {
         return res.redirect('/login');
     }
 
-    const { nama, layanan, berat, status, nohp, jumlah_baju, jumlah_celana, jumlah_jaket, jumlah_kerudung, jumlah_koko, jumlah_handuk, jumlah_kemeja, jumlah_sarung, jumlah_gamis, jumlah_mukena } = req.body;
+    const { id_pelanggan, layanan, berat, status, nohp, jumlah_baju, jumlah_celana, jumlah_jaket, jumlah_kerudung, jumlah_koko, jumlah_handuk, jumlah_kemeja, jumlah_sarung, jumlah_gamis, jumlah_mukena } = req.body;
 
     let hargaPerKg = 7000;
 
@@ -79,12 +101,11 @@ exports.tambahTransaksi = (req, res) => {
     const sql = `
         INSERT INTO transaksi
         (
-            nama,
+            id_pelanggan,
             layanan,
             berat,
             status,
             harga,
-            nohp,
             jumlah_baju,
             jumlah_celana,
             jumlah_jaket,
@@ -98,18 +119,17 @@ exports.tambahTransaksi = (req, res) => {
             tanggal_masuk,
             estimasi_selesai
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(
         sql,
         [
-            nama,
+            id_pelanggan,
             layanan,
             berat,
             status,
             harga,
-            nohp,
             jumlah_baju,
             jumlah_celana,
             jumlah_jaket,
@@ -184,6 +204,39 @@ exports.pelanggan = (req, res) => {
     });
 
 };
+
+exports.tambahPelanggan = (req,res)=>{
+
+const {
+nama,
+nohp,
+alamat
+}=req.body;
+
+db.query(
+
+`INSERT INTO pelanggan
+(nama,nohp,alamat)
+VALUES (?,?,?)`,
+
+[nama,nohp,alamat],
+
+(err)=>{
+
+if(err){
+
+console.log(err);
+return res.send(err);
+
+}
+
+res.redirect('/transaksi');
+
+}
+
+);
+
+}
 
 exports.laporan = (req, res) => {
 
@@ -407,21 +460,75 @@ exports.loginPage = (req, res) => {
     res.render('login');
 };
 
-exports.loginProcess = (req, res) => {
+exports.loginProcess = (req,res)=>{
 
-    const { username, password } = req.body;
 
-    if(username === 'admin' && password === '123'){
+const {
+username,
+password
 
-        req.session.user = username;
+}=req.body;
 
-        res.redirect('/');
 
-    }else{
 
-        res.send('Username atau password salah');
+db.query(
 
-    }
+"SELECT * FROM users WHERE username=? AND password=?",
+
+[
+username,
+password
+],
+
+
+(err,result)=>{
+
+
+if(err){
+
+return res.send(err);
+
+}
+
+
+
+if(result.length > 0){
+
+
+
+req.session.user=result[0];
+
+
+
+res.redirect('/');
+
+
+}
+
+else{
+
+
+res.send(`
+
+<script>
+
+alert('Login gagal');
+
+window.location='/login';
+
+</script>
+
+`);
+
+}
+
+
+
+}
+
+
+);
+
 
 };
 

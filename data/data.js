@@ -16,6 +16,13 @@ nohp: "08123456789"
 }
 ];
 
+const pelanggan = [{
+    nama: "joy",
+    nohp: "081987654",
+    alamat: "walikukun"
+}]
+
+
 module.exports = {
 transaksi,
 pelanggan
